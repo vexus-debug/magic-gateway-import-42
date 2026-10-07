@@ -36,6 +36,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { PageTourButton } from "@/components/dashboard/tour/PageTourButton";
 import { startDentistVisitTour } from "@/components/dashboard/tour/DentistVisitTourHost";
+import DlabOverviewPage from "@/pages/dashboard/dlab/DlabOverviewPage";
 import { EyeTodayScreen } from "@/components/dashboard/eye/EyeTodayScreen";
 import { useAddToWaitingList } from "@/hooks/useWaitingList";
 import { DentistWaitingRoomCard } from "@/components/dashboard/DentistWaitingRoomCard";
@@ -441,5 +442,6 @@ function StandardDashboardHome() {
 export default function DashboardHome() {
   const { currentOrg } = useOrg();
   if (currentOrg?.clinic_type === "eye") return <EyeTodayScreen />;
+  if ((currentOrg?.clinic_type as string) === "dental_lab") return <DlabOverviewPage />;
   return <StandardDashboardHome />;
 }

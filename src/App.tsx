@@ -81,6 +81,13 @@ import ShopManagementPage from "./pages/dashboard/ShopManagementPage";
 import BranchesPage from "./pages/dashboard/BranchesPage";
 import { MainClinicOnly } from "@/components/dashboard/MainClinicOnly";
 
+// Dental lab
+import LabRegisterPage from "./pages/dashboard/dlab/LabRegisterPage";
+import DlabCasesPage from "./pages/dashboard/dlab/DlabCasesPage";
+import DlabCalendarPage from "./pages/dashboard/dlab/DlabCalendarPage";
+import DlabClientsPage from "./pages/dashboard/dlab/DlabClientsPage";
+import DlabStatementsPage from "./pages/dashboard/dlab/DlabStatementsPage";
+import DlabReportsPage from "./pages/dashboard/dlab/DlabReportsPage";
 // Diagnostic centre — laboratory
 import LabOverviewPage from "./pages/dashboard/lab/LabOverviewPage";
 import TestFormsPage from "./pages/dashboard/lab/TestFormsPage";
@@ -319,6 +326,15 @@ const App = () => (
               <Route path="lab/technicians" element={<LabTechniciansPage />} />
               <Route path="lab/billing" element={<LabBillingPage />} />
               <Route path="lab/settings" element={<LabSettingsPage />} />
+
+              {/* Dental lab */}
+              <Route path="dlab" element={<Navigate to="../dashboard" replace />} />
+              <Route path="dlab/cases" element={<DlabCasesPage />} />
+              <Route path="dlab/calendar" element={<DlabCalendarPage />} />
+              <Route path="dlab/clients" element={<DlabClientsPage />} />
+              <Route path="dlab/statements" element={<DlabStatementsPage />} />
+              <Route path="dlab/reports" element={<DlabReportsPage />} />
+              <Route path="dlab/r/:kind" element={<LabRegisterPage />} />
 
               {/* Diagnostic centre — laboratory */}
               <Route path="diagnostics" element={<LabOverviewPage />} />
