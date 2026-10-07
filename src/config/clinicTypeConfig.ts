@@ -42,6 +42,7 @@ export const clinicTypeOptions: ClinicTypeOption[] = [
   { value: "cardiology", label: "Cardiology Clinic", description: "Heart & cardiovascular care", icon: Heart, comingSoon: true },
   { value: "ent", label: "ENT Clinic", description: "Ear, nose & throat specialist", icon: Ear, comingSoon: true },
   { value: "general", label: "General Practice", description: "Primary care & family medicine", icon: Stethoscope, comingSoon: true },
+  { value: "dental_lab", label: "Dental Lab", description: "Crowns, dentures & digital lab work for clinics", icon: FlaskConical, comingSoon: false },
   { value: "diagnostic", label: "Diagnostic Centre", description: "Laboratory, imaging & pharmacy services", icon: Microscope, comingSoon: false },
 ];
 
@@ -287,6 +288,45 @@ const eyeNav: NavGroup[] = [
   },
 ];
 
+const dentalLabNav: NavGroup[] = [
+  { label: "Production", items: [
+    { title: "Production Overview", path: "dashboard", icon: LayoutDashboard },
+    { title: "Case Board", path: "dlab/cases", icon: ClipboardList },
+    { title: "Calendar", path: "dlab/calendar", icon: CalendarDays },
+    { title: "Recurring Orders", path: "dlab/r/recurring", icon: CalendarClock },
+  ] },
+  { label: "Catalogue", items: [
+    { title: "Work Types", path: "dlab/r/work-types", icon: Package },
+    { title: "Shade Library", path: "dlab/r/shades", icon: Star },
+  ] },
+  { label: "Clients & Money", items: [
+    { title: "Clients", path: "dlab/clients", icon: Users },
+    { title: "Client Prices", path: "dlab/r/client-prices", icon: DollarSign },
+    { title: "Statements", path: "dlab/statements", icon: FileText },
+    { title: "Payments Received", path: "dlab/r/client-payments", icon: Wallet },
+    { title: "Credit Notes", path: "dlab/r/credit-notes", icon: Receipt },
+  ] },
+  { label: "Logistics", items: [
+    { title: "Shipments", path: "dlab/r/shipments", icon: Truck },
+    { title: "Dispatch Runs", path: "dlab/r/dispatch", icon: Activity },
+    { title: "Warranties & Remakes", path: "dlab/r/warranties", icon: Shield },
+  ] },
+  { label: "Outsourcing", items: [
+    { title: "External Labs", path: "dlab/r/external-labs", icon: Link2 },
+    { title: "Lab Payments", path: "dlab/r/lab-payments", icon: CreditCard },
+  ] },
+  { label: "Team & Workshop", items: [
+    { title: "Staff", path: "staff", icon: UserCog },
+    { title: "Skills Matrix", path: "dlab/r/skills", icon: GraduationCap },
+    { title: "Salary Allocation", path: "dlab/r/salary-allocation", icon: PiggyBank },
+    { title: "Equipment", path: "dlab/r/equipment", icon: Wrench },
+  ] },
+  { label: "Reports", items: [
+    { title: "Reports", path: "dlab/reports", icon: BarChart3 },
+    { title: "Expenses", path: "expenses", icon: Receipt },
+  ] },
+];
+
 export const clinicTypeConfig: Record<string, ClinicTypeConfig> = {
   dental: {
     label: "Dental Clinic",
@@ -295,6 +335,10 @@ export const clinicTypeConfig: Record<string, ClinicTypeConfig> = {
   eye: {
     label: "Eye Clinic",
     navGroups: eyeNav,
+  },
+  dental_lab: {
+    label: "Dental Lab",
+    navGroups: dentalLabNav,
   },
   diagnostic: {
     label: "Diagnostic Centre",

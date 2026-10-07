@@ -127,12 +127,49 @@ export const EYE_PAGE_ROLE_ACCESS: Record<string, OrgRole[]> = {
 };
 
 /**
+ * Dental labs: menus by job.
+ * lab_technician = Technician, lab_assistant = Case intake / dispatch,
+ * receptionist = Front office, accountant = Accounts, dentist = Lab manager (production lead).
+ */
+const TECH: OrgRole[] = ["lab_technician"];
+const INTAKE: OrgRole[] = ["lab_assistant", "receptionist"];
+const ACCTS: OrgRole[] = ["accountant"];
+const LEAD: OrgRole[] = ["dentist"];
+const ALL_DLAB: OrgRole[] = [...TECH, ...INTAKE, ...ACCTS, ...LEAD];
+
+export const DLAB_PAGE_ROLE_ACCESS: Record<string, OrgRole[]> = {
+  "dashboard": ALL_DLAB,
+  "dlab/cases": [...TECH, ...INTAKE, ...LEAD],
+  "dlab/calendar": [...TECH, ...INTAKE, ...LEAD],
+  "dlab/r/recurring": [...INTAKE, ...LEAD],
+  "dlab/r/work-types": [...TECH, ...INTAKE, ...LEAD, ...ACCTS],
+  "dlab/r/shades": [...TECH, ...LEAD],
+  "dlab/clients": [...INTAKE, ...ACCTS, ...LEAD],
+  "dlab/r/client-prices": [...ACCTS, ...LEAD],
+  "dlab/statements": ACCTS,
+  "dlab/r/client-payments": ACCTS,
+  "dlab/r/credit-notes": ACCTS,
+  "dlab/r/shipments": [...INTAKE, ...LEAD],
+  "dlab/r/dispatch": [...INTAKE, ...LEAD],
+  "dlab/r/warranties": [...TECH, ...INTAKE, ...LEAD],
+  "dlab/r/external-labs": [...LEAD, ...ACCTS],
+  "dlab/r/lab-payments": ACCTS,
+  "dlab/r/skills": [...TECH, ...LEAD],
+  "dlab/r/salary-allocation": ACCTS,
+  "dlab/r/equipment": [...TECH, ...LEAD],
+  "dlab/reports": [...ACCTS, ...LEAD],
+  "expenses": ACCTS,
+  "staff": [],
+};
+
+/**
  * Check if a user's org role allows access to a relative page path.
  * orgRole is the user's role within the current organization.
  */
 export function hasPageAccess(orgRole: string, relativePath: string, clinicType?: string): boolean {
   if (orgRole === "owner" || orgRole === "admin" || orgRole === "manager") return true;
-  const map = clinicType === "eye" ? { ...PAGE_ROLE_ACCESS, ...EYE_PAGE_ROLE_ACCESS } : PAGE_ROLE_ACCESS;
+  const map = clinicType === "eye" ? { ...PAGE_ROLE_ACCESS, ...EYE_PAGE_ROLE_ACCESS }
+    : clinicType === "dental_lab" ? { ...PAGE_ROLE_ACCESS, ...DLAB_PAGE_ROLE_ACCESS } : PAGE_ROLE_ACCESS;
   // Handle patient profile sub-routes
   if (relativePath.startsWith("patients/")) {
     return map["patients"]?.includes(orgRole as OrgRole) ?? false;
@@ -159,8 +196,17 @@ const EYE_ROLE_LABELS: Record<string, string> = {
   accountant: "Cashier",
 };
 
+const DLAB_ROLE_LABELS: Record<string, string> = {
+  dentist: "Lab manager",
+  lab_technician: "Dental technician",
+  lab_assistant: "Case intake & dispatch",
+  receptionist: "Front office",
+  accountant: "Accounts",
+};
+
 export function getRoleLabel(role: string, clinicType?: string): string {
   if (clinicType === "eye" && EYE_ROLE_LABELS[role]) return EYE_ROLE_LABELS[role];
+  if (clinicType === "dental_lab" && DLAB_ROLE_LABELS[role]) return DLAB_ROLE_LABELS[role];
   const labels: Record<string, string> = {
     owner: "Owner",
     admin: "Admin",
