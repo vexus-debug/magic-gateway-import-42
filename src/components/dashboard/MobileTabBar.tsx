@@ -17,11 +17,15 @@ export function MobileTabBar({ aiOpen, onOpenAI, onCloseAI }: MobileTabBarProps)
   const role = currentOrg?.role ?? "";
   const clinicType = currentOrg?.clinic_type;
 
-  const links = [
+  const links = ((clinicType as string) === "dental_lab" ? [
+    { path: "dashboard", label: "Home", icon: LayoutDashboard },
+    { path: "dlab/cases", label: "Cases", icon: Users },
+    { path: "dlab/calendar", label: "Calendar", icon: CalendarDays },
+  ] : [
     { path: "dashboard", label: "Home", icon: LayoutDashboard },
     { path: "patients", label: "Patients", icon: Users },
     { path: "appointments", label: "Schedule", icon: CalendarDays },
-  ].filter((l) => hasPageAccess(role, l.path, clinicType));
+  ]).filter((l) => hasPageAccess(role, l.path, clinicType));
 
   const itemCls = (active: boolean) =>
     `flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium transition-colors active:scale-95 ${
